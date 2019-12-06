@@ -4,8 +4,10 @@ const db = require('./config/db')
 
 app.db = db
 
+//Load modules of app
 consign()
     .then('./config/middlewares.js')
+    .then('./api/validator.js')
     .then('./api')
     .then('./config/routes.js')
     .into(app)
