@@ -13,7 +13,7 @@ module.exports = app => {
 
         if(req.params.id) user.id = req.params.id
 
-        try{
+        try{         
             // Validations
             existsOrError(user.name, 'Nome não informado.')
             existsOrError(user.email, 'E-mail não informado.')
@@ -21,8 +21,8 @@ module.exports = app => {
             existsOrError(user.confirmPassword, 'Confirmação de senha inválida')
             equalsOrError(user.password, user.confirmPassword, 'Senhas não conferem')
 
-            const userFromDB = await app.db('users')
-            .where({ email: user.email}).first()
+            const userFromDB = await app.db('users').where({email: user.email}).first()
+
             if(!user.id){
                 notExistsOrError(userFromDB, 'Usuário já cadastrado')
             }
@@ -55,5 +55,16 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return {save, get}
+    const getById = (req, res) => {
+        const userId = req.params.id;
+        
+        app.db('users')
+            .select('id','name','email','admin')
+            .where({id: userId})
+            .first()
+            .then(user => res.json(user))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return {save, get, getById}
 }
