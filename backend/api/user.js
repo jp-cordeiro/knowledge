@@ -62,7 +62,13 @@ module.exports = app => {
             .select('id','name','email','admin')
             .where({id: userId})
             .first()
-            .then(user => res.json(user))
+            .then(user => {
+                if(user){
+                    res.json(user)
+                }else{
+                    res.status(400).send("Usuário não encontrado.")
+                }
+            })
             .catch(err => res.status(500).send(err))
     }
 
