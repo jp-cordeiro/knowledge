@@ -56,7 +56,7 @@ module.exports = app => {
     }
 
     const getById = (req, res) => {
-        const userId = req.params.id;
+        const userId = req.params.id
         
         app.db('users')
             .select('id','name','email','admin')
