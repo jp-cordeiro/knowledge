@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
             .references('id')
             .inTable('categories')
             .notNull()
+        table.string('imageUrl')
     })
 };
 
