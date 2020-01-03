@@ -18,6 +18,8 @@ module.exports = app => {
             res.status(400).send(msg)
         }
 
+        console.log(JSON.stringify(article))
+
         if(article.id){
             app.db('articles')
                 .update(article)
