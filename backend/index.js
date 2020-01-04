@@ -6,6 +6,7 @@ app.db = db
 
 //Load modules of app
 consign()
+    .include('./config/passport.js')
     .then('./config/middlewares.js')
     .then('./api/validator.js')
     .then('./api')
