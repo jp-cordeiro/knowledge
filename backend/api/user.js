@@ -13,6 +13,10 @@ module.exports = app => {
 
         if(req.params.id) user.id = req.params.id
 
+        //Only admin users add admin users
+        if(!req.originalUrl.startWith('/users')) user.admin = false
+        if(!req.user || !req.user.admin) user.admin = false
+
         try{         
             // Validations
             existsOrError(user.name, 'Nome não informado.')
